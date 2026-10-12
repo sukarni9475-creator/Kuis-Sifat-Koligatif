@@ -313,7 +313,7 @@ const Store = {
   async rpc(p) {
     const c = new AbortController(), t = setTimeout(() => c.abort(), 20000);
     try {
-      const r = await fetch(CONFIG.https://script.google.com/macros/s/AKfycbxUjglAlaTxm5_GmV1ixruscc-ICkTmJMAlovJbkCvdCOFa54gwmGSlyIwO2z0qa5dMkQ/exec, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(p), signal: c.signal });
+      const r = await fetch(CONFIG.https://script.google.com/macros/s/AKfycbxuSAqGQt736dZcbi3FfsHWayQVR2gfhCS1Vv8cDCuRJntMYKXg36vcS4vmZsWlaNQgNA/exec, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(p), signal: c.signal });
       const j = await r.json(); if (!j.ok) throw new Error(j.error || 'Gagal'); return j;
     } finally { clearTimeout(t) }
   },
