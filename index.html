@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kuis Interaktif Sifat Koligatif Larutan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf7ff;--card:#ffffff;--ink:#2b2340;--muted:#6f6786;--line:#e6dff2;
+  --green:#2fa56d;--pink:#e5509a;--purple:#7a4fd6;--orange:#f08a24;--blue:#2e8ad8;--red:#e5484d;
+  --soft-g:#e4f6ec;--soft-p:#fde6f1;--soft-v:#eee6fb;--soft-o:#fff0dc;
+  --water:#cdeefa;--glass:#8a7cab;--shadow:0 6px 24px rgba(90,60,150,.10);
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#16121e;--card:#221c30;--ink:#f2edfb;--muted:#aaa1c3;--line:#3b3052;
+    --soft-g:#1b3a2c;--soft-p:#432037;--soft-v:#2f2549;--soft-o:#46301a;--water:#1f4d66;--glass:#b3a6d4;--shadow:0 6px 24px rgba(0,0,0,.35)}
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Nunito',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+button,input,select{font:inherit;color:inherit}
+h1,h2,h3{line-height:1.2;margin:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 20px;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.brand{display:flex;gap:10px;align-items:center}
+.brand b{display:block;font-weight:800}.brand small{color:var(--muted)}
+.logo{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,var(--purple),var(--pink))}
+main{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+.screen{display:none}.screen.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+.chip{display:inline-block;padding:3px 12px;border-radius:99px;background:var(--soft-v);color:var(--purple);font-weight:800;font-size:.8rem}
+.btn{border:0;border-radius:12px;padding:10px 18px;font-weight:800;cursor:pointer;background:var(--soft-v);color:var(--purple);transition:transform .12s,filter .12s}
+.btn:hover{filter:brightness(.97);transform:translateY(-1px)}.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn.primary{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff}
+.btn.green{background:var(--green);color:#fff}.btn.orange{background:var(--orange);color:#fff}.btn.danger{background:var(--red);color:#fff}
+.btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn.big{padding:14px 26px;font-size:1.05rem}.btn.small{padding:6px 12px;font-size:.85rem}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.hero{display:grid;grid-template-columns:1fr 1.1fr;gap:22px;align-items:center;padding:28px;border-radius:26px;color:#fff;background:linear-gradient(135deg,var(--purple) 0%,var(--pink) 62%,var(--orange) 120%);box-shadow:var(--shadow)}
+.hero h1{font-size:2.3rem;margin:10px 0}
+.hero p{margin:0 0 18px;opacity:.95}
+.hero .chip{background:rgba(255,255,255,.25);color:#fff}
+.hero .btn.primary{background:#fff;color:var(--purple)}
+.hero-fig{background:rgba(255,255,255,.92);border-radius:20px;padding:10px;color:#2b2340}
+.sec{margin:30px 0 14px;font-size:1.3rem}
+.cards4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.sifat{padding:12px;border-top:6px solid var(--purple)}
+.sifat.c1{border-top-color:var(--green)}.sifat.c2{border-top-color:var(--orange)}.sifat.c3{border-top-color:var(--blue)}.sifat.c4{border-top-color:var(--pink)}
+.sifat h3{font-size:1rem;margin:6px 0 2px}.sifat .f{font-weight:800;color:var(--purple);font-size:.95rem}
+.sifat p{margin:4px 0 0;font-size:.85rem;color:var(--muted)}
+.fig{border-radius:14px;background:var(--soft-v);padding:6px}
+svg{max-width:100%;height:auto;display:block;margin:0 auto}
+/* SVG art */
+.glass{fill:none;stroke:var(--glass);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.water{fill:var(--water)}.lid{fill:var(--glass)}.mem{stroke:var(--pink);stroke-width:4;stroke-dasharray:5 4}
+.t{font:600 12px 'Nunito',system-ui,sans-serif;fill:var(--ink);text-anchor:middle}
+.tb{font-weight:800}.ts{font-size:10.5px;fill:var(--muted)}.tl{text-anchor:start}.tr{text-anchor:end}.big{font-size:24px}
+.sg{font:800 12px sans-serif;fill:#fff;text-anchor:middle}
+.dA{fill:var(--orange)}.dB{fill:var(--pink)}.dC{fill:var(--green)}.dD{fill:var(--purple)}
+.dW{fill:#fff;stroke:var(--blue);stroke-width:1.6}
+.arr{stroke:var(--pink);stroke-width:2.5;stroke-linecap:round;fill:none}.arrh{fill:var(--pink)}
+.tube{fill:var(--card);stroke:var(--glass);stroke-width:2.5}.hg{fill:#e5484d}.tick{stroke:var(--glass);stroke-width:1.5}
+.ice{fill:#e8f7ff;stroke:#8fd0ee;stroke-width:2}.salt{fill:#fff;stroke:#9a8fb8;stroke-width:1}
+.cr1{fill:var(--purple)}.cr2{fill:var(--green)}.bub{fill:none;stroke:#fff;stroke-width:1.6}
+.flame{fill:var(--orange)}.burner{fill:var(--glass)}
+.rbc{fill:#e5484d}.rbc2{fill:#c23a3e}.qc{fill:none;stroke:var(--pink);stroke-width:2.5;stroke-dasharray:5 4}
+.rad{fill:var(--soft-v);stroke:var(--glass);stroke-width:3}.fin{stroke:var(--purple);stroke-width:3;opacity:.55}
+.axis{stroke:var(--ink);stroke-width:2;fill:none;stroke-linecap:round}.grid{stroke:var(--line);stroke-width:1}
+.cvP{fill:none;stroke:var(--purple);stroke-width:3}.cvS{fill:none;stroke:var(--pink);stroke-width:3;stroke-dasharray:7 5}
+.dash{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:4 4;fill:none}
+.piston{fill:var(--purple)}.pt{fill:var(--orange);stroke:#fff;stroke-width:2}
+.bag{fill:var(--water);stroke:var(--glass);stroke-width:3}
+/* form */
+.form{max-width:520px;margin:20px auto}
+.field{margin:12px 0}.field label{display:block;font-weight:800;margin-bottom:4px}
+.field input,.field select{width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--card)}
+.field input:focus,.field select:focus{outline:3px solid var(--soft-v);border-color:var(--purple)}
+.msg{padding:10px 14px;border-radius:12px;margin:10px 0;font-weight:600}
+.msg.ok{background:var(--soft-g);color:var(--green)}.msg.warn{background:var(--soft-o);color:var(--orange)}.msg.err{background:var(--soft-p);color:var(--pink)}
+.rules{list-style:none;padding:0;margin:14px 0;display:grid;gap:10px}
+.rules li{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:14px;background:var(--soft-v)}
+.rules li span{font-size:1.4rem}
+/* quiz */
+body.kiosk .top{display:none}
+body.kiosk .quizlock{user-select:none;-webkit-user-select:none}
+.qbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.qtools{display:flex;gap:8px;align-items:center}
+.timer{font-weight:800;font-variant-numeric:tabular-nums;background:var(--soft-g);color:var(--green);padding:6px 14px;border-radius:99px}
+.timer.low{background:var(--soft-p);color:var(--red);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.55}}
+.vio{font-weight:800;padding:6px 12px;border-radius:99px;background:var(--soft-o);color:var(--orange)}
+.prog{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin-bottom:14px}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--purple),var(--pink));transition:width .3s}
+.qgrid{display:grid;grid-template-columns:1.05fr 1fr;gap:16px;align-items:start}
+.label{font-weight:800;color:var(--purple);margin-bottom:8px}
+.stim p{margin:0 0 12px}
+.qtext{font-size:1.08rem;font-weight:700;margin-bottom:12px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:12px 14px;border-radius:14px;border:2px solid var(--line);background:var(--card);cursor:pointer;transition:.12s}
+.opt:hover{border-color:var(--purple);background:var(--soft-v)}
+.opt b{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--soft-v);color:var(--purple)}
+.opt.sel{border-color:var(--purple);background:var(--soft-v)}.opt.sel b{background:var(--purple);color:#fff}
+.qfoot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:16px 0}
+.navgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:8px}
+.navgrid button{height:40px;border-radius:10px;border:2px solid var(--line);background:var(--card);font-weight:800;cursor:pointer}
+.navgrid .ans{background:var(--soft-g);border-color:var(--green);color:var(--green)}
+.navgrid .flag{border-color:var(--orange);background:var(--soft-o);color:var(--orange)}
+.navgrid .cur{outline:3px solid var(--purple);outline-offset:1px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:var(--muted);margin-top:8px}
+/* result */
+.resgrid{display:grid;grid-template-columns:260px 1fr;gap:18px;align-items:center}
+.ring{position:relative;width:200px;height:200px;margin:0 auto}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:2.6rem;font-weight:800}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.stat{padding:12px;border-radius:14px;background:var(--soft-v);text-align:center}
+.stat b{display:block;font-size:1.4rem}.stat small{color:var(--muted)}
+.rev{margin-top:10px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card)}
+.rev summary{padding:12px 14px;cursor:pointer;font-weight:700;display:flex;gap:10px;align-items:center}
+.rev .body{padding:0 14px 14px}
+.rev.good summary{background:var(--soft-g)}.rev.bad summary{background:var(--soft-p)}
+.badge{display:inline-block;padding:2px 10px;border-radius:99px;font-weight:800;font-size:.8rem}
+.badge.ok{background:var(--soft-g);color:var(--green)}.badge.no{background:var(--soft-p);color:var(--red)}.badge.warn{background:var(--soft-o);color:var(--orange)}
+/* admin */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.tabs button.on{background:var(--purple);color:#fff}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{background:var(--soft-v);color:var(--purple);position:sticky;top:0}
+td button{border:0;background:none;color:var(--purple);font-weight:800;cursor:pointer;padding:2px 6px}
+td button[data-a=del]{color:var(--red)}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.filters input,.filters select{padding:9px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--card)}
+.bar{height:12px;border-radius:99px;background:var(--line);overflow:hidden;min-width:120px}.bar i{display:block;height:100%}
+.sw{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.toggle{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.toggle input[type=number]{width:90px;padding:7px;border-radius:8px;border:1.5px solid var(--line);background:var(--card)}
+/* modal & toast */
+#modal{position:fixed;inset:0;background:rgba(20,10,40,.6);display:none;place-items:center;z-index:100;padding:16px;overflow:auto}
+#modal.on{display:grid}
+.mbox{background:var(--card);border-radius:20px;padding:22px;max-width:760px;width:100%;max-height:92vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.mbox h3{margin-bottom:10px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.fgrid div{background:var(--soft-v);border-radius:12px;padding:10px 12px;font-size:.92rem}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 20px;border-radius:99px;font-weight:700;z-index:200;opacity:0;pointer-events:none;transition:.3s}
+#toast.on{opacity:1}
+.note{color:var(--muted);font-size:.9rem}
+@media(max-width:860px){.hero,.qgrid,.resgrid{grid-template-columns:1fr}.cards4{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:1.8rem}}
+@media(max-width:520px){.cards4{grid-template-columns:1fr}main{padding:14px 10px 50px}}
+</style>
+</head>
+<body>
+<header class="top" id="topbar">
+  <div class="brand"><div class="logo">⚗️</div><div><b>Kuis Kimia Interaktif</b><small id="schoolName"></small></div></div>
+  <button class="btn ghost small" id="btnAdmin">🔐 Panel Guru</button>
+</header>
+
+<main>
+<!-- BERANDA -->
+<section id="sHome" class="screen on">
+  <div class="hero">
+    <div>
+      <span class="chip">Kimia · Fase F</span>
+      <h1>Sifat Koligatif Larutan</h1>
+      <p>Uji pemahaman konsep dan kemampuan hitungmu lewat <b>20 soal bergambar</b>: 10 soal konsep dan 10 soal perhitungan, masing-masing diawali stimulus.</p>
+      <button class="btn primary big" id="btnStart">Mulai Mengerjakan →</button>
+    </div>
+    <div class="hero-fig" id="heroFig"></div>
+  </div>
+  <h2 class="sec">Empat sifat koligatif yang akan kamu uji</h2>
+  <div class="cards4" id="cards4"></div>
+  <p class="note" style="margin-top:18px">Sifat koligatif larutan hanya bergantung pada <b>jumlah partikel zat terlarut</b>, bukan pada jenis zatnya.</p>
+</section>
+
+<!-- LOGIN SISWA -->
+<section id="sLogin" class="screen">
+  <div class="form card">
+    <h2>Identitas Peserta</h2>
+    <div id="resumeBox"></div>
+    <form id="fLogin" autocomplete="off">
+      <div class="field"><label for="iNama">Nama lengkap</label><input id="iNama" maxlength="60" required placeholder="mis. Siti Aisyah"></div>
+      <div class="field"><label for="iKelas">Kelas</label><input id="iKelas" maxlength="20" required placeholder="mis. XI-3"></div>
+      <div class="field"><label for="iAbsen">No. absen / NIS (opsional)</label><input id="iAbsen" maxlength="20" placeholder="mis. 24"></div>
+      <div id="loginMsg"></div>
+      <div class="row"><button type="button" class="btn ghost" id="btnBackHome">← Kembali</button><button class="btn primary" id="btnLogin">Lanjut →</button></div>
+    </form>
+  </div>
+</section>
+
+<!-- ATURAN -->
+<section id="sRules" class="screen">
+  <div class="form card" style="max-width:680px">
+    <h2>Sebelum Mulai, Baca Dulu ya!</h2>
+    <p id="rulesHi" class="note"></p>
+    <ul class="rules" id="rulesList"></ul>
+    <div class="row"><button class="btn ghost" id="btnRulesBack">← Ubah data</button><button class="btn green big" id="btnBegin">Saya siap, mulai ujian 🚀</button></div>
+  </div>
+</section>
+
+<!-- UJIAN -->
+<section id="sQuiz" class="screen quizlock">
+  <div class="qbar">
+    <div><span class="chip" id="qSec"></span> <b id="qNo" style="margin-left:6px"></b></div>
+    <div class="qtools"><button class="btn small" id="btnFormula">📘 Rumus</button><span class="vio" id="vio"></span><span class="timer" id="timer">--:--</span></div>
+  </div>
+  <div class="prog"><i id="progBar"></i></div>
+  <div class="qgrid">
+    <div class="card stim"><div class="label">📖 Stimulus</div><div id="qStim"></div><div class="fig" id="qFig"></div></div>
+    <div class="card"><div class="label">❓ Pertanyaan</div><div class="qtext" id="qText"></div><div class="opts" id="qOpts"></div></div>
+  </div>
+  <div class="qfoot">
+    <button class="btn" id="btnPrev">← Sebelumnya</button>
+    <button class="btn orange" id="btnFlag">🚩 Ragu-ragu</button>
+    <button class="btn primary" id="btnNext">Berikutnya →</button>
+  </div>
+  <div class="card"><div class="label">🧭 Navigasi soal</div><div class="navgrid" id="navGrid"></div>
+    <div class="legend"><span>🟩 sudah dijawab</span><span>🟧 ragu-ragu</span><span>⬜ belum dijawab</span></div>
+    <div class="row" style="margin-top:12px"><button class="btn green" id="btnFinish">✅ Selesai &amp; Kumpulkan</button></div>
+  </div>
+</section>
+
+<!-- HASIL -->
+<section id="sResult" class="screen">
+  <div class="card">
+    <div class="resgrid">
+      <div class="ring" id="ring"></div>
+      <div>
+        <h2 id="resTitle"></h2><p id="resSub" class="note"></p>
+        <div class="stats" id="resStats"></div>
+        <div id="resStatus"></div>
+      </div>
+    </div>
+  </div>
+  <h2 class="sec" id="revHead">Pembahasan</h2>
+  <div id="revList"></div>
+  <div class="row" style="margin-top:20px"><button class="btn primary" id="btnHome">← Kembali ke Beranda</button></div>
+</section>
+
+<!-- LOGIN GURU -->
+<section id="sAdminLogin" class="screen">
+  <div class="form card">
+    <h2>🔐 Panel Guru / Admin</h2>
+    <form id="fAdmin" autocomplete="off">
+      <div class="field"><label for="iPin">PIN guru</label><input id="iPin" type="password" required placeholder="Masukkan PIN"></div>
+      <div id="adminMsg"></div>
+      <div class="row"><button type="button" class="btn ghost" id="btnAdminBack">← Kembali</button><button class="btn primary">Masuk</button></div>
+    </form>
+  </div>
+</section>
+
+<!-- PANEL GURU -->
+<section id="sAdmin" class="screen">
+  <div class="qbar"><h2>📊 Rekap &amp; Kontrol Kuis</h2><div class="row"><span class="badge warn" id="modeBadge"></span><button class="btn small" id="btnReload">🔄 Muat ulang</button><button class="btn small ghost" id="btnLogout">Keluar</button></div></div>
+  <div class="tabs" id="adTabs">
+    <button class="btn on" data-tab="rekap">Rekap Siswa</button>
+    <button class="btn" data-tab="analisis">Analisis Soal</button>
+    <button class="btn" data-tab="set">Pengaturan</button>
+  </div>
+  <div id="adBody"></div>
+</section>
+</main>
+
+<div id="modal"><div class="mbox" id="mbox"></div></div>
+<div id="toast"></div>
+
+<script>
+/* =========================================================
+   KONFIGURASI — ubah bagian ini sesuai kebutuhan
+   ========================================================= */
+const CONFIG = {
+  SEKOLAH: 'SMAN 1 Tarumajaya',
+  ADMIN_PIN: 'guru2026',      // GANTI! (samakan dengan ADMIN_PIN di Code.gs bila memakai Google Sheet)
+  SHEET_URL: '',              // URL Web App Google Apps Script (berakhiran /exec). Kosong = mode lokal (satu perangkat)
+  DEFAULT: { open: true, durasi: 60, kkm: 75, maxPelanggaran: 3, acak: true, pembahasan: true, rumus: true }
+};
+
+/* =========================================================
+   UTILITAS
+   ========================================================= */
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const lsGet = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v } catch (e) { return d } };
+const lsSet = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, JSON.stringify(v)) } catch (e) {} };
+const pad = n => String(n).padStart(2, '0');
+const mmss = s => { s = Math.max(0, Math.round(s)); return pad(Math.floor(s / 60)) + ':' + pad(s % 60) };
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+const L4 = ['A', 'B', 'C', 'D'];
+const fmtDate = t => new Date(t).toLocaleString('id-ID', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+const textOf = h => { const d = document.createElement('div'); d.innerHTML = h; return d.textContent };
+const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[a[i], a[j]] = [a[j], a[i]] } return a };
+let toastT;
+function toast(m) { const t = $('#toast'); t.textContent = m; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 2600) }
+function openModal(html) { $('#mbox').innerHTML = html; $('#modal').classList.add('on') }
+function closeModal() { $('#modal').classList.remove('on'); $('#mbox').innerHTML = '' }
+function ask(title, msg, ok = 'Ya', cancel = 'Batal', cls = 'primary') {
+  return new Promise(res => {
+    openModal(`<h3>${title}</h3><p>${msg}</p><div class="row" style="justify-content:flex-end"><button class="btn ghost" id="mNo">${cancel}</button><button class="btn ${cls}" id="mOk">${ok}</button></div>`);
+    $('#mOk').onclick = () => { closeModal(); res(true) }; $('#mNo').onclick = () => { closeModal(); res(false) };
+  });
+}
+function show(id) {
+  $$('.screen').forEach(s => s.classList.toggle('on', s.id === id));
+  document.body.classList.toggle('kiosk', id === 'sQuiz');
+  window.scrollTo(0, 0);
+}
+
+/* =========================================================
+   PENYIMPANAN: Google Sheet (jika SHEET_URL diisi) / lokal
+   ========================================================= */
+const Store = {
+  remote: !!CONFIG.SHEET_URL,
+  async rpc(p) {
+    const c = new AbortController(), t = setTimeout(() => c.abort(), 20000);
+    try {
+      const r = await fetch(CONFIG.SHEET_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(p), signal: c.signal });
+      const j = await r.json(); if (!j.ok) throw new Error(j.error || 'Gagal'); return j;
+    } finally { clearTimeout(t) }
+  },
+  async settings() {
+    let s = {};
+    if (this.remote) { try { s = (await this.rpc({ action: 'settings' })).settings || {} } catch (e) { s = lsGet('kol_set', {}) } }
+    else s = lsGet('kol_set', {});
+    return { ...CONFIG.DEFAULT, ...s };
+  },
+  async saveSettings(s, pin) { lsSet('kol_set', s); if (this.remote) await this.rpc({ action: 'saveSettings', pin, settings: s }) },
+  async save(r) {
+    if (this.remote) await this.rpc({ action: 'save', result: r });
+    else { const a = lsGet('kol_res', []); if (!a.some(x => x.id === r.id)) a.push(r); lsSet('kol_res', a) }
+  },
+  async list(pin) {
+    if (this.remote) return (await this.rpc({ action: 'list', pin })).results || [];
+    if (pin !== CONFIG.ADMIN_PIN) throw new Error('PIN salah');
+    return lsGet('kol_res', []);
+  },
+  async del(id, pin) { if (this.remote) await this.rpc({ action: 'delete', pin, id }); else lsSet('kol_res', lsGet('kol_res', []).filter(x => x.id !== id)) },
+  async clear(pin) { if (this.remote) await this.rpc({ action: 'clear', pin }); else lsSet('kol_res', []) }
+};
+
+/* =========================================================
+   ILUSTRASI SVG
+   ========================================================= */
+const mb = a => function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296 };
+const SV = (w, h, body, alt) => `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(alt || 'Ilustrasi')}">${body}</svg>`;
+const T = (x, y, s, c = '') => `<text class="t ${c}" x="${x}" y="${y}">${s}</text>`;
+function mix(x, y, w, h, spec, seed) {
+  const N = spec.reduce((a, s) => a + s.n, 0); if (!N || w <= 0 || h <= 0) return '';
+  const rnd = mb(seed), cols = Math.max(1, Math.round(Math.sqrt(N * w / h))), rows = Math.ceil(N / cols);
+  const cells = [...Array(cols * rows).keys()];
+  for (let i = cells.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1));[cells[i], cells[j]] = [cells[j], cells[i]] }
+  const cw = w / cols, ch = h / rows; let k = 0, o = '';
+  spec.forEach(s => { for (let i = 0; i < s.n; i++) {
+    const c = cells[k++], cx = x + (c % cols + .5) * cw + (rnd() - .5) * cw * .4, cy = y + (Math.floor(c / cols) + .5) * ch + (rnd() - .5) * ch * .4;
+    o += `<circle class="${s.cls}" cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${s.r || 5}"/>`;
+    if (s.sg) o += `<text class="sg" x="${cx.toFixed(1)}" y="${(cy + 4).toFixed(1)}">${s.sg}</text>`;
+  } });
+  return o;
+}
+const beaker = (x, y, w, h, f) => { const wy = (y + h * (1 - f)).toFixed(1); return `<path class="water" d="M${x + 1.5} ${wy} H${x + w - 1.5} V${y + h - 8} Q${x + w - 1.5} ${y + h - 1.5} ${x + w - 9} ${y + h - 1.5} H${x + 10} Q${x + 1.5} ${y + h - 1.5} ${x + 1.5} ${y + h - 8}Z"/><path class="glass" d="M${x} ${y} V${y + h - 9} Q${x} ${y + h} ${x + 9} ${y + h} H${x + w - 9} Q${x + w} ${y + h} ${x + w} ${y + h - 9} V${y}"/>` };
+function arrow(x1, y1, x2, y2, c = 'arr') {
+  const a = Math.atan2(y2 - y1, x2 - x1), Lh = 8, p1 = [x2 - Lh * Math.cos(a - .45), y2 - Lh * Math.sin(a - .45)], p2 = [x2 - Lh * Math.cos(a + .45), y2 - Lh * Math.sin(a + .45)];
+  return `<line class="${c}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/><path class="${c}h" d="M${x2} ${y2} L${p1[0].toFixed(1)} ${p1[1].toFixed(1)} L${p2[0].toFixed(1)} ${p2[1].toFixed(1)}Z"/>`;
+}
+function thermo(x, y, h, f, top, bot) {
+  let s = `<rect class="tube" x="${x - 6}" y="${y}" width="12" height="${h}" rx="6"/><circle class="tube" cx="${x}" cy="${y + h + 6}" r="12"/><circle class="hg" cx="${x}" cy="${y + h + 6}" r="8.5"/>`;
+  const mh = h * f; s += `<rect class="hg" x="${x - 3}" y="${(y + h - mh).toFixed(1)}" width="6" height="${(mh + 4).toFixed(1)}" rx="3"/>`;
+  for (let i = 0; i <= 5; i++) { const yy = (y + 8 + (h - 16) * i / 5).toFixed(1); s += `<line class="tick" x1="${x + 9}" x2="${x + (i % 5 ? 14 : 18)}" y1="${yy}" y2="${yy}"/>` }
+  return s + T(x, y - 10, top, 'tb') + (bot ? T(x, y + h + 34, bot, 'ts') : '');
+}
+
+/* 1. Tekanan uap */
+function vapor(o) {
+  const bx = [45, 215], by = 62, bw = 120, bh = 118, f = .55, top = by + bh * (1 - f); let s = '';
+  [0, 1].forEach(i => {
+    const x = bx[i]; s += beaker(x, by, bw, bh, f) + `<rect class="lid" x="${x - 5}" y="${by - 7}" width="${bw + 10}" height="7" rx="3"/>`;
+    s += mix(x + 8, by + 8, bw - 16, top - by - 26, [{ cls: 'dW', n: o.nv[i], r: 4.5 }], 20 + i);
+    for (let k = 0; k < o.na[i]; k++) { const ax = x + bw * (k + 1) / (o.na[i] + 1); s += arrow(ax, top - 2, ax, top - 14) }
+  });
+  s += mix(bx[1] + 8, top + 10, bw - 16, bh * f - 22, [{ cls: o.sol || 'dA', n: o.ns, r: 5 }], 33);
+  s += T(bx[0] + bw / 2, by + bh + 22, o.lt, 'tb') + T(bx[0] + bw / 2, by + bh + 38, o.ls, 'ts') + T(bx[1] + bw / 2, by + bh + 22, o.rt, 'tb') + T(bx[1] + bw / 2, by + bh + 38, o.rs, 'ts');
+  s += T(190, 30, 'wadah tertutup, suhu sama', 'ts') + `<circle class="dW" cx="${bx[1] + bw + 12}" cy="${by + 6}" r="0"/>`;
+  s += `<circle class="dW" cx="48" cy="212" r="4.5"/>` + T(58, 216, 'molekul uap pelarut', 'ts tl') + `<circle class="dA" cx="170" cy="212" r="5"/>` + T(180, 216, 'zat terlarut', 'ts tl');
+  return SV(380, 232, s, 'Dua wadah tertutup berisi pelarut murni dan larutan');
+}
+/* 2. Tiga gelas partikel */
+function parts3(items, alt, W = 400) {
+  let s = '';
+  items.forEach((it, i) => { const x = 28 + i * 124, y = 64, w = 100, h = 104, f = .72;
+    s += beaker(x, y, w, h, f) + mix(x + 7, y + h * (1 - f) + 8, w - 14, h * f - 18, it.spec, 50 + i * 7);
+    s += T(x + w / 2, y - 24, it.top || '', 'tb') + T(x + w / 2, y - 10, it.top2 || '', 'ts') + T(x + w / 2, y + h + 20, it.l1, 'tb') + T(x + w / 2, y + h + 36, it.l2 || '', 'ts');
+  });
+  return SV(W, 220, s, alt);
+}
+/* 3. Es + garam */
+function iceSalt() {
+  let s = '';
+  [0, 1].forEach(i => { const x = 30 + i * 220, y = 70, w = 130, h = 100; s += beaker(x, y, w, h, .7);
+    [[x + 14, y + 36], [x + 52, y + 30], [x + 88, y + 40], [x + 30, y + 62], [x + 70, y + 64]].forEach(([a, b]) => { s += `<rect class="ice" x="${a}" y="${b}" width="28" height="24" rx="5" transform="rotate(${(a * 7) % 20 - 10} ${a + 14} ${b + 12})"/>` });
+    if (i) s += mix(x + 10, y + 34, w - 20, 54, [{ cls: 'salt', n: 14, r: 2.8 }], 9);
+    s += T(x + w / 2, y + h + 20, i ? 'Es batu + garam' : 'Es batu saja', 'tb');
+  });
+  s += thermo(192, 60, 100, .62, '0 °C', '') + thermo(412, 60, 100, .3, '−8 °C', '');
+  s += T(220, 30, 'suhu campuran diukur dengan termometer', 'ts');
+  return SV(440, 215, s, 'Perbandingan suhu es batu dan es batu yang diberi garam');
+}
+/* 4. Pipa U osmosis */
+function utube(o) {
+  const Lv = o.lL ?? 92, Rv = o.rL ?? 92; let s = '';
+  s += `<rect class="water" x="72" y="${Lv}" width="115" height="${207 - Lv}"/><rect class="water" x="193" y="${Rv}" width="115" height="${207 - Rv}"/>`;
+  s += mix(78, Lv + 8, 103, 207 - Lv - 18, o.lS || [], 11) + mix(199, Rv + 8, 103, 207 - Rv - 18, o.rS || [], 12);
+  s += `<path class="glass" d="M70 40 V196 Q70 210 84 210 H296 Q310 210 310 196 V40"/><line class="glass" x1="190" y1="40" x2="190" y2="130"/><line class="mem" x1="190" y1="130" x2="190" y2="210"/>`;
+  if (o.arr === 'right') [150, 172, 194].forEach(y => { s += arrow(166, y, 214, y) });
+  if (o.arr === 'both') { s += arrow(166, 160, 214, 160) + arrow(214, 184, 166, 184) }
+  if (o.h) { s += `<line class="dash" x1="312" y1="${Rv}" x2="334" y2="${Rv}"/><line class="dash" x1="312" y1="${Lv}" x2="334" y2="${Lv}"/>` + arrow(326, Lv, 326, Rv) + arrow(326, Rv, 326, Lv) + T(334, (Lv + Rv) / 2 + 4, o.h, 'tb tl') }
+  s += T(129, 17, o.lt, 'tb') + T(129, 32, o.ls || '', 'ts') + T(250, 17, o.rt, 'tb') + T(250, 32, o.rs || '', 'ts') + T(190, 230, 'garis putus-putus = membran semipermeabel', 'ts');
+  return SV(390, 240, s, 'Bejana U dengan membran semipermeabel');
+}
+/* 5. Diagram fase */
+function phase() {
+  const yp = x => 170 - 130 * Math.pow((x - 100) / 230, 1.4), pure = [], sol = ['86,184'];
+  for (let x = 100; x <= 330; x += 10) { pure.push(`${x},${yp(x).toFixed(1)}`); sol.push(`${x},${(yp(x) + 14).toFixed(1)}`) }
+  let s = `<path class="axis" d="M50 205 V18 M50 205 H352"/>` + T(14, 110, '', '') + `<text class="t" transform="translate(16 112) rotate(-90)">Tekanan</text>` + T(332, 222, 'Suhu', 'tb');
+  s += `<line class="dash" x1="50" y1="110" x2="345" y2="110"/>` + T(46, 114, '1 atm', 'ts tr');
+  s += `<polyline class="cvP" points="${pure.join(' ')}"/><line class="cvP" x1="100" y1="170" x2="90" y2="30"/>`;
+  s += `<polyline class="cvS" points="${sol.join(' ')}"/><line class="cvS" x1="86" y1="184" x2="72" y2="30"/>`;
+  [[79.3, 'P', 1], [95.7, 'Q', -1], [232.4, 'R', -1], [253.8, 'S', 1]].forEach(([x, l, d]) => { s += `<circle class="pt" cx="${x}" cy="110" r="5.5"/>` + T(x, d > 0 ? 130 : 98, l, 'tb') });
+  s += T(160, 70, 'Cair', 'tb') + T(300, 170, 'Gas', 'tb') + T(66, 190, 'Padat', 'ts');
+  s += `<line class="cvP" x1="215" y1="30" x2="245" y2="30"/>` + T(250, 34, 'pelarut murni', 'ts tl') + `<line class="cvS" x1="215" y1="50" x2="245" y2="50"/>` + T(250, 54, 'larutan', 'ts tl');
+  return SV(380, 232, s, 'Diagram fase tekanan terhadap suhu untuk pelarut murni dan larutan');
+}
+/* 6. Ionisasi */
+function ions(o) {
+  let s = ''; for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) s += `<rect class="${(r + c) % 2 ? 'cr1' : 'cr2'}" x="${28 + c * 22}" y="${68 + r * 22}" width="20" height="20" rx="4"/>`;
+  s += T(61, 160, o.f, 'tb') + T(61, 176, 'kristal padat', 'ts') + arrow(112, 100, 172, 100) + T(142, 88, '+ air', 'ts');
+  s += beaker(185, 50, 195, 120, .8) + mix(193, 72, 179, 90, [{ cls: 'dD', n: o.nc, r: 9, sg: '+' }, { cls: 'dC', n: o.na, r: 9, sg: '−' }], 5);
+  s += T(282, 192, 'ion-ion bebas bergerak dalam larutan', 'tb');
+  s += `<circle class="dD" cx="215" cy="214" r="7"/>` + T(226, 218, o.lc, 'ts tl') + `<circle class="dC" cx="305" cy="214" r="7"/>` + T(316, 218, o.la, 'ts tl');
+  return SV(400, 230, s, 'Kristal garam melarut menjadi ion-ion dalam air');
+}
+/* 7. Sel darah merah */
+function rbc() {
+  let s = ''; const c = ['NaCl 0,9%', 'NaCl 0,1%', 'NaCl 3%'], c2 = ['sama dengan isi sel', 'lebih encer dari isi sel', 'lebih pekat dari isi sel'];
+  c.forEach((k, i) => { const x = 24 + i * 126, y = 56, w = 100, h = 100, cx = x + w / 2, cy = y + 62; s += beaker(x, y, w, h, .78);
+    if (i === 0) { s += `<ellipse class="rbc" cx="${cx}" cy="${cy}" rx="27" ry="27"/><ellipse class="rbc2" cx="${cx}" cy="${cy}" rx="11" ry="11"/>` + T(cx, y - 8, 'sel normal', 'ts') }
+    else { s += `<circle class="qc" cx="${cx}" cy="${cy}" r="25"/>` + T(cx, cy + 9, '?', 'tb big') + T(cx, y - 8, 'bentuk sel?', 'ts') }
+    s += T(cx, y + h + 20, k, 'tb') + T(cx, y + h + 36, c2[i], 'ts');
+  });
+  return SV(380, 215, s, 'Sel darah merah dalam tiga larutan NaCl');
+}
+/* 8. Osmosis balik */
+function ro() {
+  let s = `<path class="water" d="M62 108 H187 V207 H62Z"/><path class="water" d="M193 150 H308 V207 H193Z"/>`;
+  s += mix(68, 116, 113, 84, [{ cls: 'dD', n: 7, r: 4.5 }, { cls: 'dC', n: 7, r: 4.5 }], 3);
+  s += `<path class="glass" d="M60 76 V196 Q60 210 74 210 H296 Q310 210 310 196 V76"/><line class="glass" x1="190" y1="76" x2="190" y2="120"/><line class="mem" x1="190" y1="120" x2="190" y2="210"/>`;
+  s += `<rect class="piston" x="64" y="88" width="119" height="14" rx="4"/><line class="glass" x1="123" y1="88" x2="123" y2="58"/><rect class="piston" x="98" y="48" width="50" height="10" rx="4"/>`;
+  s += arrow(123, 14, 123, 44) + T(135, 22, 'tekanan luar (P)', 'tb tl');
+  [142, 166, 190].forEach(y => { s += arrow(168, y, 214, y) });
+  s += T(124, 232, 'Air laut (pekat)', 'tb') + T(250, 232, 'Air tawar', 'tb') + T(250, 130, 'hanya air yang lolos', 'ts');
+  return SV(380, 240, s, 'Osmosis balik: piston menekan air laut sehingga air tawar melewati membran');
+}
+/* 9. Grafik */
+function chart() {
+  let s = `<path class="axis" d="M60 20 V190 H350"/>`;
+  [0, 2, 4, 6].forEach(v => { const y = 190 - 26 * v; s += `<line class="grid" x1="60" y1="${y}" x2="350" y2="${y}"/>` + T(52, y + 4, v, 'ts tr') });
+  [0, 1, 2, 3].forEach(m => { s += T(60 + m * 80, 208, m, 'ts') });
+  s += T(205, 226, 'molalitas urea, m (mol/kg)', 'tb') + `<text class="t tb" transform="translate(14 105) rotate(-90)">ΔTf (°C)</text>`;
+  const d = [[0, 0], [1, 1.86], [2, 3.72], [3, 5.58]], p = d.map(([m, v]) => `${60 + m * 80},${190 - 26 * v}`);
+  s += `<polyline class="cvS" style="stroke-dasharray:none" points="${p.join(' ')}"/>`;
+  d.forEach(([m, v]) => { s += `<circle class="pt" cx="${60 + m * 80}" cy="${190 - 26 * v}" r="5.5"/>` + (m ? T(60 + m * 80 - 22, 190 - 26 * v - 6, String(v).replace('.', ','), 'tb') : '') });
+  return SV(380, 236, s, 'Grafik ΔTf terhadap molalitas berupa garis lurus');
+}
+/* 10. Mendidih */
+function boil(o) {
+  let s = `<rect class="burner" x="80" y="190" width="140" height="10" rx="4"/>`;
+  [[150, 1], [118, .7], [182, .7]].forEach(([x, k]) => { s += `<path class="flame" d="M${x} 190 C${x - 20 * k} 180 ${x - 12 * k} ${190 - 30 * k} ${x} ${190 - 40 * k} C${x + 12 * k} ${190 - 30 * k} ${x + 20 * k} 180 ${x} 190Z"/>` });
+  s += beaker(85, 60, 130, 112, .72) + mix(93, 100, 114, 60, [{ cls: 'dA', n: o.n, r: 5 }], 14) + mix(95, 92, 110, 18, [{ cls: 'bub', n: 5, r: 3.4 }], 4);
+  s += thermo(280, 48, 112, o.f, o.top, 'termometer') + arrow(220, 110, 262, 110, 'dash');
+  s += T(150, 224, o.l1, 'tb') + T(150, 238, o.l2 || '', 'ts');
+  return SV(380, 246, s, 'Larutan yang dipanaskan sampai mendidih dan diukur dengan termometer');
+}
+/* 11. Kurva pendinginan */
+function cooling() {
+  let s = `<path class="axis" d="M60 20 V190 H350"/>` + T(205, 214, 'waktu pendinginan', 'tb') + `<text class="t tb" transform="translate(12 105) rotate(-90)">suhu</text>`;
+  s += `<line class="dash" x1="60" y1="90" x2="350" y2="90"/><line class="dash" x1="60" y1="114" x2="350" y2="114"/>` + T(56, 93, '0 °C', 'ts tr') + T(56, 118, '−0,279 °C', 'ts tr');
+  s += `<path class="cvP" d="M70 36 Q110 90 150 90 H228 Q258 90 300 172"/><path class="cvS" d="M70 36 Q120 114 168 114 H246 Q272 114 308 180"/>`;
+  s += arrow(196, 91, 196, 113) + T(206, 106, 'ΔTf', 'tb tl');
+  s += `<line class="cvP" x1="258" y1="30" x2="286" y2="30"/>` + T(291, 34, 'air murni', 'ts tl') + `<line class="cvS" x1="258" y1="50" x2="286" y2="50"/>` + T(291, 54, 'larutan', 'ts tl');
+  return SV(380, 226, s, 'Kurva pendinginan air murni dan larutan');
+}
+/* 12. Radiator */
+function radiator() {
+  let s = `<path class="glass" d="M295 70 H335 V162 H295 M85 162 H45 V80 H85"/><rect class="rad" x="95" y="70" width="190" height="90" rx="8"/>`;
+  for (let i = 0; i < 9; i++) s += `<line class="fin" x1="${115 + i * 20}" y1="84" x2="${115 + i * 20}" y2="146"/>`;
+  s += `<rect class="lid" x="85" y="60" width="210" height="14" rx="6"/><rect class="lid" x="85" y="156" width="210" height="14" rx="6"/><rect class="piston" x="170" y="42" width="40" height="18" rx="6"/>`;
+  s += T(190, 30, '❄ suhu beku campuran = ?', 'tb') + T(190, 200, 'Radiator berisi campuran air + etilen glikol', 'tb') + T(190, 216, '(zat antibeku nonelektrolit)', 'ts');
+  return SV(380, 226, s, 'Radiator mobil berisi campuran air dan etilen glikol');
+}
+/* 13. Infus */
+function infus() {
+  let s = `<circle class="glass" cx="190" cy="20" r="8"/><line class="glass" x1="190" y1="28" x2="190" y2="40"/>`;
+  s += `<path class="bag" d="M140 40 H240 Q252 40 252 52 V122 Q252 152 190 164 Q128 152 128 122 V52 Q128 40 140 40Z"/>`;
+  [70, 90, 110].forEach(y => { s += `<line class="tick" x1="238" y1="${y}" x2="252" y2="${y}"/>` });
+  s += T(188, 96, 'NaCl ? g', 'tb') + T(188, 114, 'dalam 500 mL', 'ts') + `<line class="glass" x1="190" y1="164" x2="190" y2="186"/><rect class="tube" x="178" y="186" width="24" height="30" rx="8"/><circle class="water" cx="190" cy="198" r="3"/>`;
+  s += `<path class="glass" d="M190 216 V232 Q190 242 214 242 H300"/>`;
+  s += `<circle class="rbc" cx="322" cy="238" r="12"/><circle class="rbc2" cx="322" cy="238" r="5"/>` + T(322, 214, 'darah', 'ts') + T(322, 262, 'π = 7,63 atm', 'tb');
+  s += T(70, 100, 'infus', 'tb') + T(70, 116, 'harus isotonik', 'ts');
+  return SV(380, 270, s, 'Kantong infus NaCl yang harus isotonik dengan darah');
+}
+/* Beranda */
+const heroFig = () => parts3([
+  { spec: [{ cls: 'dW', n: 3, r: 4 }], l1: 'Air murni', l2: 'tanpa zat terlarut', top: '100,00 °C', top2: 'titik didih' },
+  { spec: [{ cls: 'dA', n: 5, r: 5 }], l1: 'Larutan gula', l2: '0,5 m', top: '100,26 °C', top2: 'titik didih' },
+  { spec: [{ cls: 'dD', n: 5, r: 5, sg: '+' }, { cls: 'dC', n: 5, r: 5, sg: '−' }], l1: 'Larutan garam', l2: '0,5 m', top: '100,52 °C', top2: 'titik didih' }], 'Perbandingan titik didih air, larutan gula, dan larutan garam');
+const SIFAT = [
+  { c: 'c1', t: 'Penurunan Tekanan Uap', f: 'ΔP = Xt · P°', p: 'Zat terlarut menghalangi penguapan pelarut.', fig: () => vapor({ lt: 'Pelarut', ls: 'P°', rt: 'Larutan', rs: 'P < P°', nv: [9, 4], na: [3, 1], ns: 6 }) },
+  { c: 'c2', t: 'Kenaikan Titik Didih', f: 'ΔTb = Kb · m · i', p: 'Larutan mendidih pada suhu lebih tinggi.', fig: () => boil({ n: 6, f: .72, top: '↑ Tb', l1: 'Larutan mendidih' }) },
+  { c: 'c3', t: 'Penurunan Titik Beku', f: 'ΔTf = Kf · m · i', p: 'Larutan membeku pada suhu lebih rendah.', fig: () => iceSalt() },
+  { c: 'c4', t: 'Tekanan Osmotik', f: 'π = M · R · T · i', p: 'Tekanan agar osmosis berhenti.', fig: () => utube({ lt: 'Pelarut', rt: 'Larutan', lL: 98, rL: 72, rS: [{ cls: 'dA', n: 5 }], arr: 'right', h: 'π' }) }];
+
+/* =========================================================
+   BANK SOAL (10 konsep + 10 perhitungan)
+   ========================================================= */
+const GLU = [{ cls: 'dA', n: 5, r: 5 }];
+const QUESTIONS = [
+  /* ---------- BAGIAN A: KONSEP ---------- */
+  { id: 'K1', sec: 'K', t: 'Penyebab penurunan tekanan uap',
+    stim: '<p>Dua wadah tertutup berisi <b>air murni</b> dan <b>larutan gula</b> diletakkan pada suhu yang sama. Setelah setimbang, alat ukur menunjukkan tekanan uap larutan lebih rendah daripada air murni.</p>',
+    fig: () => vapor({ lt: 'Air murni', ls: 'uap lebih banyak', rt: 'Larutan gula', rs: 'uap lebih sedikit', nv: [9, 4], na: [3, 1], ns: 7 }),
+    q: 'Penyebab utama tekanan uap larutan lebih rendah daripada pelarut murninya adalah ….',
+    o: ['Partikel zat terlarut menghalangi molekul pelarut di permukaan sehingga lebih sedikit yang menguap', 'Zat terlarut bereaksi dengan uap air sehingga jumlah uap berkurang', 'Massa jenis larutan lebih besar daripada massa jenis air murni', 'Zat terlarut menurunkan suhu larutan sehingga air sulit menguap'], a: 0,
+    e: 'Partikel zat terlarut yang tidak mudah menguap menempati sebagian permukaan larutan dan menghalangi molekul pelarut untuk lepas ke fase uap. Akibatnya tekanan uap jenuh larutan (P) lebih rendah daripada tekanan uap pelarut murni (P°).' },
+  { id: 'K2', sec: 'K', t: 'Dasar sifat koligatif',
+    stim: '<p>Tiga larutan nonelektrolit dibuat dari zat berbeda (gula, urea, dan etanol), masing-masing <b>0,5 mol dalam 1 kg air</b>. Ketiganya mendidih pada suhu yang sama, yaitu 100,26 °C.</p>',
+    fig: () => parts3([{ spec: [{ cls: 'dA', n: 5, r: 5 }], l1: 'Gula', l2: '0,5 mol / 1 kg air', top: 'Tb = 100,26 °C' }, { spec: [{ cls: 'dB', n: 5, r: 5 }], l1: 'Urea', l2: '0,5 mol / 1 kg air', top: 'Tb = 100,26 °C' }, { spec: [{ cls: 'dD', n: 5, r: 5 }], l1: 'Etanol', l2: '0,5 mol / 1 kg air', top: 'Tb = 100,26 °C' }], 'Tiga larutan dengan jumlah partikel sama mendidih pada suhu sama'),
+    q: 'Berdasarkan data tersebut, sifat koligatif larutan ditentukan oleh ….',
+    o: ['Jenis zat terlarut', 'Jumlah (konsentrasi) partikel zat terlarut', 'Massa molekul relatif zat terlarut', 'Warna dan bentuk partikel zat terlarut'], a: 1,
+    e: 'Ketiga zat berbeda jenis, tetapi jumlah partikelnya sama sehingga kenaikan titik didihnya sama. Sifat koligatif hanya bergantung pada banyaknya partikel zat terlarut, bukan jenisnya.' },
+  { id: 'K3', sec: 'K', t: 'Urutan titik didih',
+    stim: '<p>Tiga larutan dengan molalitas sama (0,1 m): <b>glukosa</b> (C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>), <b>NaCl</b>, dan <b>CaCl<sub>2</sub></b>. Elektrolit kuat terionisasi sempurna dalam air.</p>',
+    fig: () => parts3([{ spec: [{ cls: 'dA', n: 4, r: 5 }], l1: 'Glukosa', l2: '0,1 m', top: 'nonelektrolit' }, { spec: [{ cls: 'dD', n: 4, r: 5, sg: '+' }, { cls: 'dC', n: 4, r: 5, sg: '−' }], l1: 'NaCl', l2: '0,1 m', top: 'elektrolit' }, { spec: [{ cls: 'dD', n: 4, r: 5, sg: '+' }, { cls: 'dC', n: 8, r: 5, sg: '−' }], l1: 'CaCl₂', l2: '0,1 m', top: 'elektrolit' }], 'Jumlah partikel dalam larutan glukosa, NaCl, dan CaCl2'),
+    q: 'Urutan titik didih larutan dari yang paling tinggi ke paling rendah adalah ….',
+    o: ['CaCl₂ > NaCl > glukosa', 'Glukosa > NaCl > CaCl₂', 'NaCl > CaCl₂ > glukosa', 'Ketiganya sama karena molalitasnya sama'], a: 0,
+    e: 'ΔTb = Kb · m · i. Faktor van\'t Hoff: glukosa i = 1, NaCl i = 2, CaCl₂ i = 3. Makin banyak partikel, makin tinggi titik didihnya: CaCl₂ > NaCl > glukosa.' },
+  { id: 'K4', sec: 'K', t: 'Garam pada es putar',
+    stim: '<p>Pada pembuatan <b>es putar</b>, es batu dicampur garam dapur kasar. Suhu campuran turun hingga jauh di bawah 0 °C sehingga adonan cepat membeku.</p>',
+    fig: () => iceSalt(),
+    q: 'Peristiwa tersebut berkaitan dengan sifat koligatif larutan berupa ….',
+    o: ['Penurunan tekanan uap', 'Kenaikan titik didih', 'Penurunan titik beku', 'Tekanan osmotik'], a: 2,
+    e: 'Garam melarut dalam lapisan air di permukaan es sehingga titik beku larutan turun di bawah 0 °C. Es tetap mencair pada suhu yang lebih rendah dan menyerap kalor dari adonan, jadi suhu campuran menurun.' },
+  { id: 'K5', sec: 'K', t: 'Arah osmosis',
+    stim: '<p>Bejana U dibagi oleh <b>membran semipermeabel</b> yang hanya dapat dilewati molekul pelarut. Lengan kiri berisi air murni, lengan kanan berisi larutan gula, dengan tinggi permukaan awal sama.</p>',
+    fig: () => utube({ lt: 'Air murni', rt: 'Larutan gula', lS: [], rS: GLU, lL: 92, rL: 92 }),
+    q: 'Pada peristiwa osmosis ini, perpindahan molekul air yang terjadi adalah ….',
+    o: ['Dari lengan kiri (air murni) ke lengan kanan (larutan gula)', 'Dari lengan kanan (larutan gula) ke lengan kiri (air murni)', 'Molekul air dan gula saling bertukar tempat melewati membran', 'Tidak ada perpindahan karena tinggi permukaan awal sama'], a: 0,
+    e: 'Pada osmosis, pelarut berpindah dari larutan yang lebih encer (konsentrasi pelarut tinggi) ke larutan yang lebih pekat. Permukaan larutan gula naik hingga tekanan hidrostatiknya mengimbangi tekanan osmotik.' },
+  { id: 'K6', sec: 'K', t: 'Diagram fase',
+    stim: '<p>Diagram fase (P–T) membandingkan <b>pelarut murni</b> (garis tegas) dan <b>larutannya</b> (garis putus-putus). Garis mendatar menunjukkan tekanan 1 atm. Titik P, Q, R, dan S adalah titik potong garis tersebut dengan kurva.</p>',
+    fig: () => phase(),
+    q: 'Kenaikan titik didih (ΔTb) larutan ditunjukkan oleh jarak antara titik ….',
+    o: ['P dan Q', 'Q dan R', 'R dan S', 'P dan S'], a: 2,
+    e: 'P = titik beku larutan, Q = titik beku pelarut, R = titik didih pelarut, S = titik didih larutan. ΔTb = Tb larutan − Tb pelarut = jarak R ke S. Jarak P ke Q adalah ΔTf.' },
+  { id: 'K7', sec: 'K', t: 'Faktor van\'t Hoff',
+    stim: '<p>Kristal aluminium sulfat, <b>Al<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub></b>, dilarutkan dalam air dan terionisasi sempurna (α = 1) menjadi ion-ion bebas.</p>',
+    fig: () => ions({ f: 'Al₂(SO₄)₃', nc: 4, na: 6, lc: 'kation (+)', la: 'anion (−)' }),
+    q: 'Faktor van\'t Hoff (i) larutan tersebut adalah ….',
+    o: ['2', '3', '4', '5'], a: 3,
+    e: 'Al₂(SO₄)₃ → 2Al³⁺ + 3SO₄²⁻ menghasilkan n = 5 ion. i = 1 + (n − 1)α = 1 + (5 − 1)(1) = 5.' },
+  { id: 'K8', sec: 'K', t: 'Sel darah merah & larutan',
+    stim: '<p>Sel darah merah normal berada dalam cairan yang <b>isotonik</b>, yaitu NaCl 0,9%. Seorang siswa memasukkan sel darah merah ke dalam larutan <b>NaCl 3%</b> (lebih pekat daripada isi sel).</p>',
+    fig: () => rbc(),
+    q: 'Keadaan sel darah merah dalam larutan NaCl 3% adalah ….',
+    o: ['Mengerut (krenasi) karena air keluar dari sel', 'Mengembang dan pecah (lisis) karena air masuk ke sel', 'Tetap normal karena garam masuk ke dalam sel', 'Membelah karena tekanan osmotik meningkat'], a: 0,
+    e: 'Larutan NaCl 3% bersifat hipertonik terhadap isi sel. Air bergerak secara osmosis dari sel (lebih encer) ke luar sel (lebih pekat), sehingga sel mengerut (krenasi).' },
+  { id: 'K9', sec: 'K', t: 'Osmosis balik',
+    stim: '<p>Pada <b>desalinasi</b> dengan osmosis balik, air laut diberi tekanan dari luar agar air tawar dapat melewati membran semipermeabel, sedangkan garam tertahan.</p>',
+    fig: () => ro(),
+    q: 'Syarat tekanan yang diberikan pada air laut agar osmosis balik dapat terjadi adalah ….',
+    o: ['Lebih besar daripada tekanan osmotik air laut', 'Sama dengan tekanan osmotik air laut', 'Lebih kecil daripada tekanan osmotik air laut', 'Sama dengan tekanan atmosfer'], a: 0,
+    e: 'Secara alami pelarut mengalir ke larutan pekat (osmosis). Untuk membalik arah aliran, tekanan luar harus melebihi tekanan osmotik air laut sehingga air terdorong keluar dari larutan menuju sisi air tawar.' },
+  { id: 'K10', sec: 'K', t: 'Membaca grafik ΔTf',
+    stim: '<p>Seorang siswa mengukur penurunan titik beku (ΔTf) larutan <b>urea</b> pada beberapa molalitas dan menyajikan hasilnya dalam grafik. Untuk air, Kf = 1,86 °C/m.</p>',
+    fig: () => chart(),
+    q: 'Kesimpulan yang sesuai dengan grafik tersebut adalah ….',
+    o: ['ΔTf berbanding lurus dengan molalitas, dan gradien garis sama dengan Kf', 'ΔTf berbanding terbalik dengan molalitas larutan', 'ΔTf tidak dipengaruhi oleh molalitas larutan', 'ΔTf berbanding lurus dengan kuadrat molalitas'], a: 0,
+    e: 'Grafik berupa garis lurus yang melalui titik (0,0): ΔTf = Kf · m, sehingga ΔTf berbanding lurus dengan molalitas. Gradiennya 1,86 °C/m, sama dengan Kf air (i = 1 untuk urea).' },
+
+  /* ---------- BAGIAN B: PERHITUNGAN ---------- */
+  { id: 'H1', sec: 'H', t: 'Tekanan uap larutan',
+    stim: '<p>Sebanyak <b>34,2 g gula</b> (Mr = 342) dilarutkan dalam <b>90 g air</b> (Mr = 18) pada 30 °C. Tekanan uap air murni pada suhu tersebut adalah 31,8 mmHg.</p>',
+    fig: () => vapor({ lt: 'Air murni', ls: 'P° = 31,8 mmHg', rt: 'Larutan gula', rs: 'P = ?', nv: [9, 7], na: [3, 2], ns: 3 }),
+    q: 'Tekanan uap larutan tersebut adalah ….',
+    o: ['31,18 mmHg', '31,80 mmHg', '30,56 mmHg', '0,62 mmHg'], a: 0,
+    e: 'n gula = 34,2/342 = 0,1 mol; n air = 90/18 = 5 mol. Xp = 5/(5 + 0,1) = 0,980. P = Xp · P° = 0,980 × 31,8 = 31,18 mmHg. (Nilai 0,62 mmHg adalah ΔP, bukan P.)' },
+  { id: 'H2', sec: 'H', t: 'Penurunan tekanan uap',
+    stim: '<p>Sebanyak <b>6 g urea</b> (Mr = 60) dilarutkan dalam <b>36 g air</b> (Mr = 18) pada 35 °C. Tekanan uap air murni pada suhu itu adalah 42 mmHg.</p>',
+    fig: () => vapor({ lt: 'Air murni', ls: 'P° = 42 mmHg', rt: 'Larutan urea', rs: 'ΔP = ?', nv: [9, 7], na: [3, 2], ns: 3, sol: 'dB' }),
+    q: 'Penurunan tekanan uap (ΔP) larutan tersebut adalah ….',
+    o: ['2,0 mmHg', '2,1 mmHg', '4,0 mmHg', '0,2 mmHg'], a: 0,
+    e: 'n urea = 6/60 = 0,1 mol; n air = 36/18 = 2 mol. Xt = 0,1/(0,1 + 2) = 1/21. ΔP = Xt · P° = (1/21) × 42 = 2,0 mmHg.' },
+  { id: 'H3', sec: 'H', t: 'Titik didih larutan urea',
+    stim: '<p>Sebanyak <b>30 g urea</b> (Mr = 60) dilarutkan dalam <b>500 g air</b>. Kb air = 0,52 °C/m.</p>',
+    fig: () => boil({ n: 5, f: .55, top: '? °C', l1: 'Larutan urea', l2: '30 g dalam 500 g air' }),
+    q: 'Titik didih larutan tersebut pada tekanan 1 atm adalah ….',
+    o: ['100,52 °C', '100,26 °C', '101,04 °C', '99,48 °C'], a: 0,
+    e: 'm = (30/60) mol ÷ 0,5 kg = 1 m. Urea nonelektrolit (i = 1). ΔTb = Kb · m = 0,52 × 1 = 0,52 °C. Tb = 100 + 0,52 = 100,52 °C.' },
+  { id: 'H4', sec: 'H', t: 'Titik beku larutan NaCl',
+    stim: '<p>Sebanyak <b>11,7 g NaCl</b> (Mr = 58,5) dilarutkan dalam <b>200 g air</b>. NaCl terionisasi sempurna. Kf air = 1,86 °C/m.</p>',
+    fig: () => ions({ f: 'NaCl', nc: 5, na: 5, lc: 'Na⁺', la: 'Cl⁻' }),
+    q: 'Titik beku larutan tersebut adalah ….',
+    o: ['−3,72 °C', '−1,86 °C', '−7,44 °C', '−0,93 °C'], a: 0,
+    e: 'n NaCl = 11,7/58,5 = 0,2 mol; m = 0,2/0,2 kg = 1 m. NaCl → Na⁺ + Cl⁻ sehingga i = 2. ΔTf = Kf · m · i = 1,86 × 1 × 2 = 3,72 °C. Tf = 0 − 3,72 = −3,72 °C.' },
+  { id: 'H5', sec: 'H', t: 'Menentukan Mr dari titik didih',
+    stim: '<p>Sebanyak <b>3 g</b> zat nonelektrolit X dilarutkan dalam <b>100 g air</b>. Larutan mendidih pada <b>100,26 °C</b> (1 atm). Kb air = 0,52 °C/m.</p>',
+    fig: () => boil({ n: 4, f: .62, top: '100,26 °C', l1: 'Larutan zat X', l2: '3 g dalam 100 g air' }),
+    q: 'Massa molekul relatif (Mr) zat X adalah ….',
+    o: ['30', '60', '90', '120'], a: 1,
+    e: 'ΔTb = 100,26 − 100 = 0,26 °C. m = ΔTb/Kb = 0,26/0,52 = 0,5 m. Mol X = 0,5 × 0,1 kg = 0,05 mol. Mr = massa/mol = 3/0,05 = 60.' },
+  { id: 'H6', sec: 'H', t: 'Tekanan osmotik glukosa',
+    stim: '<p>Sebanyak <b>18 g glukosa</b> (Mr = 180) dilarutkan dalam air hingga volume larutan <b>500 mL</b> pada suhu <b>27 °C</b>. R = 0,082 L·atm/mol·K.</p>',
+    fig: () => utube({ lt: 'Air murni', rt: 'Larutan glukosa', rs: '0,2 M · 27 °C', lL: 98, rL: 68, rS: GLU, arr: 'right', h: 'π = ?' }),
+    q: 'Tekanan osmotik larutan tersebut adalah ….',
+    o: ['4,92 atm', '2,46 atm', '9,84 atm', '49,2 atm'], a: 0,
+    e: 'n = 18/180 = 0,1 mol; M = 0,1/0,5 L = 0,2 M; T = 27 + 273 = 300 K. π = M · R · T = 0,2 × 0,082 × 300 = 4,92 atm (glukosa nonelektrolit, i = 1).' },
+  { id: 'H7', sec: 'H', t: 'Derajat ionisasi',
+    stim: '<p>Sebanyak <b>0,1 mol</b> zat elektrolit biner (LA) dilarutkan dalam <b>1 kg air</b>. Larutan membeku pada <b>−0,279 °C</b>. Kf air = 1,86 °C/m.</p>',
+    fig: () => cooling(),
+    q: 'Derajat ionisasi (α) zat tersebut adalah ….',
+    o: ['0,25', '0,50', '0,75', '1,00'], a: 1,
+    e: 'ΔTf = 0 − (−0,279) = 0,279 °C; m = 0,1 mol/1 kg = 0,1 m. i = ΔTf/(Kf · m) = 0,279/(1,86 × 0,1) = 1,5. Untuk elektrolit biner i = 1 + α sehingga α = 0,5.' },
+  { id: 'H8', sec: 'H', t: 'Larutan isotonik',
+    stim: '<p>Larutan <b>glukosa 0,3 M</b> dan larutan <b>NaCl</b> (terionisasi sempurna) dipisahkan membran semipermeabel pada suhu yang sama. Tidak terjadi aliran bersih pelarut ke kedua arah (kedua larutan isotonik).</p>',
+    fig: () => utube({ lt: 'Glukosa', ls: '0,3 M', rt: 'NaCl', rs: '? M', lL: 90, rL: 90, lS: [{ cls: 'dA', n: 6 }], rS: [{ cls: 'dD', n: 3, r: 5, sg: '+' }, { cls: 'dC', n: 3, r: 5, sg: '−' }], arr: 'both' }),
+    q: 'Konsentrasi larutan NaCl tersebut adalah ….',
+    o: ['0,10 M', '0,15 M', '0,30 M', '0,60 M'], a: 1,
+    e: 'Isotonik berarti π sama. π glukosa = 0,3 · R · T. π NaCl = M · R · T · i dengan i = 2. Maka 0,3 = 2M sehingga M = 0,15 M.' },
+  { id: 'H9', sec: 'H', t: 'Antibeku radiator',
+    stim: '<p>Radiator mobil diisi campuran air dan etilen glikol (C<sub>2</sub>H<sub>6</sub>O<sub>2</sub>, Mr = 62, nonelektrolit) sebagai antibeku. Sebanyak <b>310 g</b> etilen glikol dilarutkan dalam <b>1.000 g air</b>. Kf air = 1,86 °C/m.</p>',
+    fig: () => radiator(),
+    q: 'Titik beku campuran tersebut adalah ….',
+    o: ['−9,3 °C', '−18,6 °C', '−4,65 °C', '−1,86 °C'], a: 0,
+    e: 'n = 310/62 = 5 mol; m = 5 mol/1 kg = 5 m. ΔTf = Kf · m = 1,86 × 5 = 9,3 °C. Tf = 0 − 9,3 = −9,3 °C.' },
+  { id: 'H10', sec: 'H', t: 'Massa NaCl untuk infus',
+    stim: '<p>Cairan infus harus isotonik dengan darah. Tekanan osmotik darah pada suhu tubuh <b>37 °C</b> adalah <b>7,63 atm</b>. Infus NaCl (Mr = 58,5; terionisasi sempurna) dibuat sebanyak <b>500 mL</b>. R = 0,082 L·atm/mol·K.</p>',
+    fig: () => infus(),
+    q: 'Massa NaCl yang diperlukan untuk membuat infus tersebut adalah ….',
+    o: ['4,39 g', '8,78 g', '2,19 g', '17,55 g'], a: 0,
+    e: 'T = 37 + 273 = 310 K; i = 2. π = M · R · T · i → M = 7,63/(0,082 × 310 × 2) = 0,15 M. n = 0,15 × 0,5 L = 0,075 mol. Massa = 0,075 × 58,5 = 4,39 g.' }
+];
+const QMAP = Object.fromEntries(QUESTIONS.map(q => [q.id, q]));
+const FORMULAS = [
+  ['Fraksi mol', 'Xt = nt/(nt + np) ; Xp = np/(nt + np)'], ['Tekanan uap', 'P = Xp · P° ; ΔP = Xt · P°'], ['Molalitas', 'm = (g/Mr) × (1000/p)'],
+  ['Kenaikan titik didih', 'ΔTb = Kb · m · i ; Tb = 100 + ΔTb'], ['Penurunan titik beku', 'ΔTf = Kf · m · i ; Tf = 0 − ΔTf'], ['Tekanan osmotik', 'π = M · R · T · i (T dalam Kelvin)'],
+  ['Faktor van\'t Hoff', 'i = 1 + (n − 1)α'], ['Tetapan air', 'Kb = 0,52 °C/m ; Kf = 1,86 °C/m ; R = 0,082 L·atm/mol·K'], ['Ar', 'H = 1; C = 12; N = 14; O = 16; Na = 23; Cl = 35,5']];
+
+/* =========================================================
+   ALUR SISWA
+   ========================================================= */
+let S = null, timerId = null, lastV = 0, fsOn = false, warnOpen = false, student = null, curSettings = { ...CONFIG.DEFAULT }, lastRes = null;
+$('#schoolName').textContent = CONFIG.SEKOLAH;
+$('#heroFig').innerHTML = heroFig();
+$('#cards4').innerHTML = SIFAT.map(x => `<div class="card sifat ${x.c}"><div class="fig">${x.fig()}</div><h3>${x.t}</h3><div class="f">${x.f}</div><p>${x.p}</p></div>`).join('');
+
+$('#btnStart').onclick = () => { show('sLogin'); checkResume() };
+$('#btnBackHome').onclick = () => show('sHome');
+$('#btnRulesBack').onclick = () => show('sLogin');
+$('#btnHome').onclick = () => show('sHome');
+
+function checkResume() {
+  const ss = lsGet('kol_session', null);
+  $('#resumeBox').innerHTML = ss && !ss.done ? `<div class="msg warn">Ada ujian atas nama <b>${esc(ss.nama)}</b> yang belum dikumpulkan. <button type="button" class="btn small orange" id="btnResume">Lanjutkan ujian</button><div class="note" style="margin-top:6px">Memuat ulang halaman dicatat sebagai pelanggaran.</div></div>` : '';
+  const b = $('#btnResume'); if (b) b.onclick = () => resumeSession(ss);
+}
+$('#fLogin').onsubmit = async e => {
+  e.preventDefault();
+  const nama = $('#iNama').value.trim().replace(/\s+/g, ' '), kelas = $('#iKelas').value.trim(), absen = $('#iAbsen').value.trim();
+  if (nama.length < 2 || !kelas) { $('#loginMsg').innerHTML = '<div class="msg err">Nama dan kelas wajib diisi.</div>'; return }
+  $('#btnLogin').disabled = true; $('#loginMsg').innerHTML = '<div class="msg">Memeriksa pengaturan kuis…</div>';
+  curSettings = await Store.settings(); $('#btnLogin').disabled = false;
+  if (!curSettings.open) { $('#loginMsg').innerHTML = '<div class="msg err">Kuis sedang ditutup oleh guru. Silakan hubungi gurumu.</div>'; return }
+  $('#loginMsg').innerHTML = ''; student = { nama, kelas, absen };
+  $('#rulesHi').innerHTML = `Halo, <b>${esc(nama)}</b> (${esc(kelas)})!`;
+  $('#rulesList').innerHTML = [
+    ['📝', `Terdiri dari <b>20 soal</b>: 10 soal konsep (Bagian A) dan 10 soal perhitungan (Bagian B).`],
+    ['⏱️', `Waktu pengerjaan <b>${curSettings.durasi} menit</b>. Jika waktu habis, jawaban otomatis dikumpulkan.`],
+    ['🚫', `Jangan membuka tab/aplikasi lain atau keluar dari layar penuh. Setiap kali terdeteksi dicatat sebagai pelanggaran; setelah <b>${curSettings.maxPelanggaran}x</b> ujian dikumpulkan otomatis.`],
+    ['🔄', 'Jangan memuat ulang halaman saat ujian berlangsung (dicatat sebagai pelanggaran).'],
+    ['🧮', curSettings.rumus ? 'Tombol <b>📘 Rumus</b> tersedia untuk melihat rumus dan tetapan. Siapkan kalkulator.' : 'Siapkan kalkulator. Tetapan (Kb, Kf, R, Ar) ada di stimulus soal.'],
+    ['🟧', 'Gunakan tombol <b>Ragu-ragu</b> untuk menandai soal yang ingin kamu cek lagi sebelum mengumpulkan.']
+  ].map(([i, t]) => `<li><span>${i}</span><div>${t}</div></li>`).join('');
+  show('sRules');
+};
+function enterFS() { try { const r = document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); if (r && r.then) r.then(() => fsOn = true).catch(() => fsOn = false) } catch (e) { fsOn = false } }
+$('#btnBegin').onclick = () => {
+  enterFS();
+  const kIds = QUESTIONS.filter(q => q.sec === 'K').map(q => q.id), hIds = QUESTIONS.filter(q => q.sec === 'H').map(q => q.id), ac = curSettings.acak;
+  const orders = {}; QUESTIONS.forEach(q => orders[q.id] = ac ? shuffle([0, 1, 2, 3]) : [0, 1, 2, 3]);
+  S = { ...student, start: Date.now(), dur: curSettings.durasi * 60, ord: ac ? [...shuffle(kIds), ...shuffle(hIds)] : [...kIds, ...hIds], orders, ans: {}, flag: {}, cur: 0, viol: 0, log: [], settings: curSettings, done: false };
+  lsSet('kol_session', S); beginQuiz();
+};
+function resumeSession(ss) {
+  enterFS(); S = ss; curSettings = S.settings; beginQuiz(); violation('Memuat ulang halaman');
+}
+function beginQuiz() {
+  show('sQuiz'); guardOn(); drawQuiz(); tick(); clearInterval(timerId); timerId = setInterval(tick, 1000);
+  $('#btnFormula').style.display = S.settings.rumus ? '' : 'none';
+}
+function tick() {
+  if (!S || S.done) return;
+  const rem = S.dur - (Date.now() - S.start) / 1000, t = $('#timer');
+  t.textContent = mmss(rem); t.classList.toggle('low', rem < 300);
+  if (rem <= 0) finish('Waktu habis');
+}
+function drawQuiz() {
+  const q = QMAP[S.ord[S.cur]], n = S.ord.length, perm = S.orders[q.id];
+  $('#qSec').textContent = q.sec === 'K' ? 'Bagian A · Soal Konsep' : 'Bagian B · Soal Perhitungan';
+  $('#qNo').textContent = `Soal ${S.cur + 1} dari ${n}`;
+  $('#qStim').innerHTML = q.stim; $('#qFig').innerHTML = q.fig(); $('#qText').textContent = q.q;
+  $('#qOpts').innerHTML = perm.map((orig, p) => `<button class="opt ${S.ans[q.id] === orig ? 'sel' : ''}" data-o="${orig}"><b>${L4[p]}</b><span>${q.o[orig]}</span></button>`).join('');
+  $$('#qOpts .opt').forEach(b => b.onclick = () => { S.ans[q.id] = +b.dataset.o; lsSet('kol_session', S); drawQuiz() });
+  $('#btnFlag').textContent = S.flag[q.id] ? '🚩 Hapus tanda ragu' : '🚩 Ragu-ragu';
+  $('#btnPrev').disabled = S.cur === 0; $('#btnNext').disabled = S.cur === n - 1;
+  const done = S.ord.filter(id => S.ans[id] != null).length; $('#progBar').style.width = (done / n * 100) + '%';
+  $('#navGrid').innerHTML = S.ord.map((id, i) => `<button data-i="${i}" class="${i === S.cur ? 'cur ' : ''}${S.flag[id] ? 'flag' : S.ans[id] != null ? 'ans' : ''}">${i + 1}</button>`).join('');
+  $$('#navGrid button').forEach(b => b.onclick = () => { S.cur = +b.dataset.i; lsSet('kol_session', S); drawQuiz(); window.scrollTo(0, 0) });
+  const mx = S.settings.maxPelanggaran; $('#vio').textContent = `⚠ ${S.viol}/${mx}`;
+}
+$('#btnPrev').onclick = () => { if (S.cur > 0) { S.cur--; lsSet('kol_session', S); drawQuiz(); window.scrollTo(0, 0) } };
+$('#btnNext').onclick = () => { if (S.cur < S.ord.length - 1) { S.cur++; lsSet('kol_session', S); drawQuiz(); window.scrollTo(0, 0) } };
+$('#btnFlag').onclick = () => { const id = S.ord[S.cur]; S.flag[id] = !S.flag[id]; lsSet('kol_session', S); drawQuiz() };
+$('#btnFormula').onclick = () => openModal(`<h3>📘 Rumus &amp; Tetapan</h3><div class="fgrid">${FORMULAS.map(([a, b]) => `<div><b>${a}</b><br>${b}</div>`).join('')}</div><div class="row" style="justify-content:flex-end;margin-top:14px"><button class="btn primary" id="mClose">Tutup</button></div>`) || ($('#mClose').onclick = closeModal);
+$('#btnFinish').onclick = async () => {
+  const un = S.ord.filter(id => S.ans[id] == null).length, fl = S.ord.filter(id => S.flag[id]).length;
+  const ok = await ask('Kumpulkan jawaban?', un ? `Masih ada <b>${un} soal belum dijawab</b>${fl ? ` dan ${fl} soal ditandai ragu-ragu` : ''}. Setelah dikumpulkan, jawaban tidak dapat diubah.` : `Semua soal sudah dijawab${fl ? `, ${fl} soal masih ditandai ragu-ragu` : ''}. Setelah dikumpulkan, jawaban tidak dapat diubah.`, 'Ya, kumpulkan', 'Periksa lagi', 'green');
+  if (ok) finish('');
+};
+
+/* ---------- Penjaga ujian (deteksi pindah tab) ---------- */
+const active = () => S && !S.done && $('#sQuiz').classList.contains('on');
+function violation(reason) {
+  if (!active()) return; const now = Date.now(); if (now - lastV < 1500) return; lastV = now;
+  S.viol++; S.log.push({ t: now, r: reason }); lsSet('kol_session', S); drawQuiz();
+  if (S.viol >= S.settings.maxPelanggaran) { finish('Melebihi batas pelanggaran'); return }
+  showWarn(reason);
+}
+function showWarn(reason) {
+  const left = S.settings.maxPelanggaran - S.viol; warnOpen = true;
+  openModal(`<h3>⚠️ Peringatan!</h3><p>Terdeteksi: <b>${esc(reason)}</b>.</p><p>Pelanggaran kamu: <b>${S.viol} dari ${S.settings.maxPelanggaran}</b>. Jika ${left} pelanggaran lagi, ujian akan <b>dikumpulkan otomatis</b>. Tetap di halaman ini sampai selesai.</p><div class="row" style="justify-content:flex-end"><button class="btn primary" id="mBack">Kembali mengerjakan</button></div>`);
+  $('#mBack').onclick = () => { closeModal(); warnOpen = false; if (!document.fullscreenElement) enterFS() };
+}
+const onVis = () => { if (document.hidden) violation('Berpindah tab atau jendela') };
+const onBlur = () => setTimeout(() => { if (active() && !document.hasFocus()) violation('Meninggalkan jendela ujian') }, 450);
+const onFs = () => { if (active() && fsOn && !document.fullscreenElement) { fsOn = false; violation('Keluar dari layar penuh') } };
+const onUnload = e => { if (active()) { e.preventDefault(); e.returnValue = '' } };
+const block = e => { if (active()) e.preventDefault() };
+const onKey = e => {
+  if (!active()) return; const k = (e.key || '').toLowerCase(), c = e.ctrlKey || e.metaKey;
+  if (k === 'f12' || (c && ['u', 's', 'p', 'c', 'x', 'v', 'a'].includes(k)) || (c && e.shiftKey && ['i', 'j', 'c'].includes(k))) e.preventDefault();
+};
+let guarded = false;
+function guardOn() {
+  if (guarded) return; guarded = true;
+  document.addEventListener('visibilitychange', onVis); window.addEventListener('blur', onBlur); document.addEventListener('fullscreenchange', onFs);
+  window.addEventListener('beforeunload', onUnload); document.addEventListener('keydown', onKey);
+  ['contextmenu', 'copy', 'cut', 'paste', 'dragstart', 'selectstart'].forEach(ev => document.addEventListener(ev, block));
+}
+function guardOff() {
+  guarded = false;
+  document.removeEventListener('visibilitychange', onVis); window.removeEventListener('blur', onBlur); document.removeEventListener('fullscreenchange', onFs);
+  window.removeEventListener('beforeunload', onUnload); document.removeEventListener('keydown', onKey);
+  ['contextmenu', 'copy', 'cut', 'paste', 'dragstart', 'selectstart'].forEach(ev => document.removeEventListener(ev, block));
+}
+
+/* ---------- Selesai & kirim ---------- */
+async function finish(auto) {
+  if (!S || S.done) return; S.done = true; clearInterval(timerId); closeModal(); warnOpen = false;
+  const dur = Math.min(S.dur, Math.round((Date.now() - S.start) / 1000)); let bK = 0, bH = 0; const ans = {};
+  QUESTIONS.forEach(q => { const a = S.ans[q.id]; ans[q.id] = a == null ? -1 : a; if (a === q.a) q.sec === 'K' ? bK++ : bH++ });
+  const res = { id: uid(), ts: Date.now(), nama: S.nama, kelas: S.kelas, absen: S.absen, bK, bH, nilai: Math.round((bK + bH) / QUESTIONS.length * 100), dur, viol: S.viol, auto: auto || '', ans };
+  lastRes = { res, st: S.settings }; lsSet('kol_session', null); guardOff(); S = null;
+  try { if (document.fullscreenElement) document.exitFullscreen() } catch (e) {} fsOn = false;
+  show('sResult'); renderResult(); await send(res);
+}
+function setStatus(h) { const el = $('#resStatus'); if (el) el.innerHTML = h }
+async function send(res) {
+  setStatus('<div class="msg">⏳ Mengirim hasil…</div>');
+  try { await Store.save(res); const p = lsGet('kol_pend', []).filter(x => x.id !== res.id); lsSet('kol_pend', p);
+    setStatus(`<div class="msg ok">✅ Hasil tersimpan${Store.remote ? ' dan sudah terekap ke guru' : ' di perangkat ini (mode lokal)'}.</div>`);
+  } catch (e) {
+    const p = lsGet('kol_pend', []); if (!p.some(x => x.id === res.id)) p.push(res); lsSet('kol_pend', p);
+    setStatus('<div class="msg warn">⚠️ Hasil belum terkirim (koneksi bermasalah). Jangan tutup halaman, lalu tekan tombol di bawah.<br><button class="btn small orange" id="btnRetry" style="margin-top:8px">Kirim ulang</button></div>');
+    $('#btnRetry').onclick = () => send(res);
+  }
+}
+function renderResult() {
+  const { res: r, st } = lastRes, ok = r.nilai >= st.kkm, C = 2 * Math.PI * 54;
+  $('#ring').innerHTML = `<svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="54" fill="none" stroke="var(--line)" stroke-width="14"/><circle cx="70" cy="70" r="54" fill="none" stroke="${ok ? 'var(--green)' : 'var(--orange)'}" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - r.nilai / 100)}" transform="rotate(-90 70 70)"/></svg><b>${r.nilai}</b>`;
+  $('#resTitle').textContent = ok ? `Hebat, ${r.nama}! 🎉` : `Tetap semangat, ${r.nama}! 💪`;
+  $('#resSub').textContent = (ok ? `Nilaimu mencapai KKM (${st.kkm}).` : `Nilaimu belum mencapai KKM (${st.kkm}). Pelajari pembahasan di bawah, lalu coba lagi bersama gurumu.`) + (r.auto ? ` Ujian dikumpulkan otomatis: ${r.auto.toLowerCase()}.` : '');
+  $('#resStats').innerHTML = `<div class="stat"><b>${r.bK}/10</b><small>Konsep</small></div><div class="stat"><b>${r.bH}/10</b><small>Perhitungan</small></div><div class="stat"><b>${mmss(r.dur)}</b><small>Waktu</small></div><div class="stat"><b>${r.viol}</b><small>Pelanggaran</small></div>`;
+  if (!st.pembahasan) { $('#revHead').style.display = 'none'; $('#revList').innerHTML = '<p class="note">Pembahasan tidak ditampilkan oleh guru.</p>'; return }
+  $('#revHead').style.display = '';
+  $('#revList').innerHTML = QUESTIONS.map((q, i) => { const a = r.ans[q.id], good = a === q.a;
+    return `<details class="rev ${good ? 'good' : 'bad'}"><summary>${good ? '✅' : '❌'} Soal ${i + 1} · ${q.t}</summary><div class="body"><div class="fig" style="margin:8px 0">${q.fig()}</div>${q.stim}<p><b>${q.q}</b></p><p>Jawabanmu: ${a < 0 ? '<i>tidak dijawab</i>' : q.o[a]}<br>Kunci: <b>${q.o[q.a]}</b></p><p class="note">💡 ${q.e}</p></div></details>` }).join('');
+}
+/* kirim ulang hasil tertunda saat halaman dibuka */
+(async () => { const p = lsGet('kol_pend', []); if (p.length && Store.remote) { for (const r of p) { try { await Store.save(r); lsSet('kol_pend', lsGet('kol_pend', []).filter(x => x.id !== r.id)) } catch (e) {} } } })();
+
+/* =========================================================
+   PANEL GURU
+   ========================================================= */
+const A = { pin: '', data: [], tab: 'rekap', st: { ...CONFIG.DEFAULT }, f: { kelas: '', q: '', sort: 'ts' }, poll: null };
+$('#btnAdmin').onclick = () => { if (active()) return; if (A.pin) { show('sAdmin'); loadAdmin() } else show('sAdminLogin') };
+$('#btnAdminBack').onclick = () => show('sHome');
+$('#fAdmin').onsubmit = async e => {
+  e.preventDefault(); const pin = $('#iPin').value; $('#adminMsg').innerHTML = '<div class="msg">Memeriksa…</div>';
+  try { A.data = await Store.list(pin); A.pin = pin; A.st = await Store.settings(); $('#adminMsg').innerHTML = ''; $('#iPin').value = ''; show('sAdmin'); renderAdmin(); startPoll() }
+  catch (err) { $('#adminMsg').innerHTML = `<div class="msg err">${esc(/PIN/i.test(err.message) ? 'PIN salah.' : 'Tidak dapat terhubung: ' + err.message)}</div>` }
+};
+$('#btnLogout').onclick = () => { A.pin = ''; A.data = []; clearInterval(A.poll); show('sHome') };
+$('#btnReload').onclick = () => loadAdmin(true);
+$('#adTabs').onclick = e => { const b = e.target.closest('button'); if (!b) return; A.tab = b.dataset.tab; $$('#adTabs button').forEach(x => x.classList.toggle('on', x === b)); renderAdmin() };
+async function loadAdmin(manual) {
+  try { A.data = await Store.list(A.pin); if (manual) A.st = await Store.settings(); if (A.tab !== 'set') renderAdmin(); if (manual) toast('Data dimuat ulang') } catch (e) { toast('Gagal memuat: ' + e.message) }
+}
+function startPoll() { clearInterval(A.poll); A.poll = setInterval(() => { if ($('#sAdmin').classList.contains('on') && A.tab !== 'set' && !$('#modal').classList.contains('on') && Store.remote) loadAdmin() }, 20000) }
+function renderAdmin() {
+  $('#modeBadge').textContent = Store.remote ? '☁️ Terhubung Google Sheet' : '💻 Mode lokal (perangkat ini)';
+  const el = $('#adBody'); if (A.tab === 'rekap') el.innerHTML = viewRekap(); else if (A.tab === 'analisis') el.innerHTML = viewAnalisis(); else el.innerHTML = viewSet();
+  if (A.tab === 'rekap') bindRekap(); if (A.tab === 'set') bindSet();
+}
+function filtered() {
+  const f = A.f; let d = A.data.filter(r => (!f.kelas || r.kelas === f.kelas) && (!f.q || String(r.nama).toLowerCase().includes(f.q.toLowerCase())));
+  const s = { ts: (a, b) => b.ts - a.ts, nilai: (a, b) => b.nilai - a.nilai, nama: (a, b) => String(a.nama).localeCompare(String(b.nama), 'id'), kelas: (a, b) => String(a.kelas).localeCompare(String(b.kelas), 'id') || String(a.nama).localeCompare(String(b.nama), 'id') };
+  return d.sort(s[f.sort] || s.ts);
+}
+function viewRekap() {
+  const all = A.data, d = filtered(), kkm = A.st.kkm, n = d.length, nil = d.map(x => x.nilai);
+  const avg = n ? (nil.reduce((a, b) => a + b, 0) / n).toFixed(1).replace('.', ',') : '–', mx = n ? Math.max(...nil) : '–', mn = n ? Math.min(...nil) : '–', tun = n ? Math.round(d.filter(x => x.nilai >= kkm).length / n * 100) : 0;
+  const kls = [...new Set(all.map(r => r.kelas))].sort((a, b) => String(a).localeCompare(String(b), 'id'));
+  return `<div class="stats" style="margin-bottom:12px"><div class="stat"><b>${n}</b><small>Peserta</small></div><div class="stat"><b>${avg}</b><small>Rata-rata</small></div><div class="stat"><b>${mx}</b><small>Tertinggi</small></div><div class="stat"><b>${mn}</b><small>Terendah</small></div><div class="stat"><b>${tun}%</b><small>Tuntas (KKM ${kkm})</small></div></div>
+  <div class="filters"><select id="fKelas"><option value="">Semua kelas</option>${kls.map(k => `<option ${A.f.kelas === k ? 'selected' : ''} value="${esc(k)}">${esc(k)}</option>`).join('')}</select><input id="fQ" placeholder="Cari nama…" value="${esc(A.f.q)}"><select id="fSort"><option value="ts">Urut: terbaru</option><option value="nilai">Urut: nilai tertinggi</option><option value="nama">Urut: nama</option><option value="kelas">Urut: kelas</option></select><button class="btn small green" id="btnCsv">⬇️ Ekspor CSV</button><button class="btn small danger" id="btnClear">🗑️ Hapus semua</button></div>
+  <div class="tablewrap"><table><thead><tr><th>No</th><th>Nama</th><th>Kelas</th><th>Absen</th><th>Konsep</th><th>Hitung</th><th>Nilai</th><th>Waktu</th><th>Pelanggaran</th><th>Masuk</th><th>Aksi</th></tr></thead><tbody>${d.map((r, i) => `<tr><td>${i + 1}</td><td><b>${esc(r.nama)}</b></td><td>${esc(r.kelas)}</td><td>${esc(r.absen || '-')}</td><td>${r.bK}/10</td><td>${r.bH}/10</td><td><span class="badge ${r.nilai >= kkm ? 'ok' : 'no'}">${r.nilai}</span></td><td>${mmss(r.dur)}</td><td>${r.viol ? `<span class="badge warn">${r.viol}</span>` : '0'}${r.auto ? ' 🔒' : ''}</td><td>${fmtDate(r.ts)}</td><td><button data-a="detail" data-id="${esc(r.id)}">Detail</button><button data-a="del" data-id="${esc(r.id)}">Hapus</button></td></tr>`).join('') || '<tr><td colspan="11" style="text-align:center;padding:30px;color:var(--muted)">Belum ada data hasil pengerjaan.</td></tr>'}</tbody></table></div>
+  <p class="note">🔒 = dikumpulkan otomatis (waktu habis / melebihi batas pelanggaran). ${Store.remote ? 'Data diperbarui otomatis tiap 20 detik.' : 'Mode lokal hanya menampilkan hasil yang dikerjakan di perangkat ini.'}</p>`;
+}
+function bindRekap() {
+  $('#fSort').value = A.f.sort;
+  $('#fKelas').onchange = e => { A.f.kelas = e.target.value; renderAdmin() };
+  $('#fSort').onchange = e => { A.f.sort = e.target.value; renderAdmin() };
+  $('#fQ').oninput = e => { A.f.q = e.target.value; const p = e.target.selectionStart; renderAdmin(); const q = $('#fQ'); q.focus(); q.setSelectionRange(p, p) };
+  $('#btnCsv').onclick = exportCsv;
+  $('#btnClear').onclick = async () => { if (await ask('Hapus semua data?', 'Seluruh rekap hasil siswa akan dihapus <b>permanen</b>. Ekspor CSV dulu bila perlu.', 'Ya, hapus semua', 'Batal', 'danger')) { try { await Store.clear(A.pin); A.data = []; renderAdmin(); toast('Semua data dihapus') } catch (e) { toast('Gagal: ' + e.message) } } };
+  $$('#adBody td button').forEach(b => b.onclick = async () => {
+    const r = A.data.find(x => x.id === b.dataset.id); if (!r) return;
+    if (b.dataset.a === 'detail') showDetail(r);
+    else if (await ask('Hapus data siswa?', `Hapus hasil <b>${esc(r.nama)}</b> (${esc(r.kelas)})?`, 'Hapus', 'Batal', 'danger')) { try { await Store.del(r.id, A.pin); A.data = A.data.filter(x => x.id !== r.id); renderAdmin(); toast('Data dihapus') } catch (e) { toast('Gagal: ' + e.message) } }
+  });
+}
+function showDetail(r) {
+  const rows = QUESTIONS.map((q, i) => { const a = r.ans[q.id], good = a === q.a; return `<tr><td>${i + 1}</td><td>${q.sec === 'K' ? 'Konsep' : 'Hitung'}</td><td>${esc(q.t)}</td><td>${a < 0 ? '<i>kosong</i>' : esc(textOf(q.o[a]))}</td><td>${esc(textOf(q.o[q.a]))}</td><td>${good ? '✅' : '❌'}</td></tr>` }).join('');
+  openModal(`<h3>${esc(r.nama)} · ${esc(r.kelas)}</h3><p class="note">Nilai <b>${r.nilai}</b> · Konsep ${r.bK}/10 · Hitung ${r.bH}/10 · Waktu ${mmss(r.dur)} · Pelanggaran ${r.viol}${r.auto ? ' · ' + esc(r.auto) : ''}</p><div class="tablewrap"><table><thead><tr><th>No</th><th>Bagian</th><th>Topik</th><th>Jawaban siswa</th><th>Kunci</th><th></th></tr></thead><tbody>${rows}</tbody></table></div><div class="row" style="justify-content:flex-end;margin-top:14px"><button class="btn primary" id="mClose">Tutup</button></div>`);
+  $('#mClose').onclick = closeModal;
+}
+function viewAnalisis() {
+  const n = A.data.length; if (!n) return '<div class="card">Belum ada data untuk dianalisis.</div>';
+  return `<div class="tablewrap"><table><thead><tr><th>No</th><th>Bagian</th><th>Topik soal</th><th>Benar</th><th>Persentase</th><th>Tingkat</th><th>Pilihan terbanyak (salah)</th></tr></thead><tbody>${QUESTIONS.map((q, i) => {
+    const c = [0, 0, 0, 0]; let ok = 0; A.data.forEach(r => { const a = r.ans[q.id]; if (a === q.a) ok++; if (a >= 0 && a < 4) c[a]++ });
+    const p = Math.round(ok / n * 100), lv = p >= 70 ? ['Mudah', 'ok'] : p >= 40 ? ['Sedang', 'warn'] : ['Sukar', 'no'];
+    let wi = -1, wm = 0; c.forEach((v, k) => { if (k !== q.a && v > wm) { wm = v; wi = k } });
+    return `<tr><td>${i + 1}</td><td>${q.sec === 'K' ? 'Konsep' : 'Hitung'}</td><td>${esc(q.t)}</td><td>${ok}/${n}</td><td><div class="bar"><i style="width:${p}%;background:${p >= 70 ? 'var(--green)' : p >= 40 ? 'var(--orange)' : 'var(--red)'}"></i></div> ${p}%</td><td><span class="badge ${lv[1]}">${lv[0]}</span></td><td style="white-space:normal;max-width:320px">${wi < 0 ? '–' : esc(textOf(q.o[wi])) + ' (' + wm + ' siswa)'}</td></tr>` }).join('')}</tbody></table></div><p class="note">Gunakan tabel ini untuk melihat konsep yang masih sukar bagi siswa dan miskonsepsi yang paling sering muncul.</p>`;
+}
+function viewSet() {
+  const s = A.st, tg = (k, l) => `<div class="toggle"><span>${l}</span><input type="checkbox" id="s_${k}" ${s[k] ? 'checked' : ''}></div>`, nm = (k, l, mn, mx) => `<div class="toggle"><span>${l}</span><input type="number" id="s_${k}" min="${mn}" max="${mx}" value="${s[k]}"></div>`;
+  return `<div class="card"><div class="sw"><div>${tg('open', '🔓 Kuis dibuka untuk siswa')}${tg('acak', '🔀 Acak urutan soal &amp; opsi')}${tg('pembahasan', '💡 Tampilkan pembahasan setelah selesai')}${tg('rumus', '📘 Tampilkan tombol rumus saat ujian')}</div><div>${nm('durasi', '⏱️ Durasi (menit)', 5, 240)}${nm('kkm', '🎯 KKM', 0, 100)}${nm('maxPelanggaran', '🚫 Batas pelanggaran sebelum auto-kumpul', 1, 20)}</div></div>
+  <div class="row" style="margin-top:16px"><button class="btn primary" id="btnSaveSet">💾 Simpan pengaturan</button></div>
+  <p class="note">Pengaturan diterapkan pada siswa yang <b>mulai</b> ujian setelah disimpan. ${Store.remote ? 'Pengaturan disimpan di Google Sheet sehingga berlaku di semua perangkat.' : 'Mode lokal: pengaturan hanya berlaku di perangkat ini.'}</p></div>`;
+}
+function bindSet() {
+  $('#btnSaveSet').onclick = async () => {
+    const g = k => { const e = $('#s_' + k); return e.type === 'checkbox' ? e.checked : Math.max(+e.min, Math.min(+e.max, +e.value || +e.min)) };
+    const s = { open: g('open'), acak: g('acak'), pembahasan: g('pembahasan'), rumus: g('rumus'), durasi: g('durasi'), kkm: g('kkm'), maxPelanggaran: g('maxPelanggaran') };
+    try { await Store.saveSettings(s, A.pin); A.st = s; toast('Pengaturan tersimpan ✔'); renderAdmin() } catch (e) { toast('Gagal menyimpan: ' + e.message) }
+  };
+}
+function exportCsv() {
+  const d = filtered(), q = s => { s = String(s ?? ''); if (/^[=+\-@]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"' };
+  const head = ['No', 'Nama', 'Kelas', 'Absen', 'Benar Konsep', 'Benar Hitung', 'Nilai', 'Durasi (detik)', 'Pelanggaran', 'Keterangan', 'Waktu', ...QUESTIONS.map(x => x.id)];
+  const rows = d.map((r, i) => [i + 1, r.nama, r.kelas, r.absen, r.bK, r.bH, r.nilai, r.dur, r.viol, r.auto, new Date(r.ts).toLocaleString('id-ID'), ...QUESTIONS.map(x => r.ans[x.id] === x.a ? 1 : 0)]);
+  const csv = '\ufeff' + [head, ...rows].map(r => r.map(q).join(',')).join('\r\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' })); a.download = 'rekap-sifat-koligatif.csv'; document.body.appendChild(a); a.click(); a.remove(); toast('CSV diunduh');
+}
+</script>
+</body>
+</html>
