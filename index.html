@@ -330,7 +330,7 @@ const Store = {
   },
   async list(pin) {
     if (this.remote) return (await this.rpc({ action: 'list', pin })).results || [];
-    if (pin !== CONFIG.ADMIN_PIN) throw new Error('PIN salah');
+    if (pin !== CONFIG.57914090) throw new Error('PIN salah');
     return lsGet('kol_res', []);
   },
   async del(id, pin) { if (this.remote) await this.rpc({ action: 'delete', pin, id }); else lsSet('kol_res', lsGet('kol_res', []).filter(x => x.id !== id)) },
