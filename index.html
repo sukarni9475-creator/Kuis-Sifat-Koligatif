@@ -309,11 +309,11 @@ function show(id) {
    PENYIMPANAN: Google Sheet (jika SHEET_URL diisi) / lokal
    ========================================================= */
 const Store = {
-  remote: !!https://script.google.com/macros/s/AKfycbw3o3JfjbsZNZErFJzgjY_6TPEKb5GOPyxVObxbhM9ZTrxGIuETHxAeUt1S9IgP_Gpnwg/exec,
+  remote: !!CONFIG.SHEET_https://script.google.com/macros/s/AKfycbw3o3JfjbsZNZErFJzgjY_6TPEKb5GOPyxVObxbhM9ZTrxGIuETHxAeUt1S9IgP_Gpnwg/exec,
   async rpc(p) {
     const c = new AbortController(), t = setTimeout(() => c.abort(), 20000);
     try {
-      const r = await fetch(https://script.google.com/macros/s/AKfycbw3o3JfjbsZNZErFJzgjY_6TPEKb5GOPyxVObxbhM9ZTrxGIuETHxAeUt1S9IgP_Gpnwg/exec, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(p), signal: c.signal });
+      const r = await fetch(CONFIG.SHEET_https://script.google.com/macros/s/AKfycbw3o3JfjbsZNZErFJzgjY_6TPEKb5GOPyxVObxbhM9ZTrxGIuETHxAeUt1S9IgP_Gpnwg/exec, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(p), signal: c.signal });
       const j = await r.json(); if (!j.ok) throw new Error(j.error || 'Gagal'); return j;
     } finally { clearTimeout(t) }
   },
